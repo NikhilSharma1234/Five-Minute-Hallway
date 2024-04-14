@@ -25,11 +25,11 @@ public class FlatScreenManager : MonoBehaviour
     {
         if (UnityEngine.XR.XRSettings.enabled)
         {
-            Debug.Log("XR is active.");
+            //Debug.Log("XR is active.");
         }
         else
         {
-            Debug.Log("XR is not available.");
+            //Debug.Log("XR is not available.");
         }
     }   
 
