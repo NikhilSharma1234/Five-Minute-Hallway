@@ -18,7 +18,7 @@ public class PortalTeleport : MonoBehaviour
         WorldAOcclusion.SetActive(true);
         WorldBOcclusion.SetActive(false);
     }
-    void Update()
+    void LateUpdate()
     {
         if (playerOverlapping)
         {
@@ -27,14 +27,15 @@ public class PortalTeleport : MonoBehaviour
 
             if(dotProduct < 0f)
             {
-                WorldB.layer = 0;
-                ChangeLayers(WorldB.transform, 0);
                 
-                portalSurface.enabled = false;
-                WorldA.layer = 6;
+                portalSurface.GetComponent<MeshRenderer>().enabled = false;
+                //WorldB.layer = 0;
+                ChangeLayers(WorldB.transform, 0);
+                //WorldA.layer = 6;
                 ChangeLayers(WorldA.transform, 6);
                 OtherWorldPortal.SetActive(true);
                 OtherWorldPortal.GetComponent<MeshRenderer>().enabled = true;
+                portalSurface.enabled = false;
                 WorldAOcclusion.SetActive(false);
                 WorldBOcclusion.SetActive(true);
                 ChangeLayers(WorldBOcclusion.transform, 8);
