@@ -9,8 +9,14 @@ public class PortalTeleport : MonoBehaviour
     public GameObject portalWorld;
     public MeshRenderer portalSurface;
     public GameObject otherPortal;
+    public GameObject OcculusionWorld;
+    public GameObject OcculusionPortalWorld;
     public bool playerOverlapping = false;
 
+    void Start(){
+        OcculusionWorld.SetActive(true);
+        OcculusionPortalWorld.SetActive(false);
+    }
     void Update()
     {
         if (playerOverlapping)
@@ -21,21 +27,28 @@ public class PortalTeleport : MonoBehaviour
             if(dotProduct < 0f)
             {
                 portalWorld.layer = 0;
-                foreach(Transform child in portalWorld.transform)
-                {
-                    child.gameObject.layer = 0;
-                }
+                ChangeLayers(portalWorld.transform, 0);
+                
                 portalSurface.enabled = false;
                 regularWorld.layer = 6;
-                foreach(Transform child in regularWorld.transform)
-                {
-                    child.gameObject.layer = 6;
-                }
+                ChangeLayers(regularWorld.transform, 6);
                 otherPortal.SetActive(true);
                 otherPortal.GetComponent<MeshRenderer>().enabled = true;
+                OcculusionWorld.SetActive(false);
+                OcculusionPortalWorld.SetActive(true);
+                ChangeLayers(OcculusionPortalWorld.transform, 6);
                 playerOverlapping = false;
                 this.gameObject.SetActive(false);
             }
+        }
+    }
+
+    void ChangeLayers(Transform obj, int newLayer) // Recursively change the layer of all children of the object
+    {
+        obj.gameObject.layer = newLayer;
+        foreach(Transform child in obj)
+        {
+            ChangeLayers(child, newLayer);
         }
     }
 
