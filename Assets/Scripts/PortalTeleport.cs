@@ -5,17 +5,18 @@ using UnityEngine;
 public class PortalTeleport : MonoBehaviour
 {
     public Transform player;
-    public GameObject regularWorld;
-    public GameObject portalWorld;
+    public GameObject WorldA;
+    public GameObject WorldAOcclusion;
+    public GameObject WorldB;
+    public GameObject WorldBOcclusion;
     public MeshRenderer portalSurface;
-    public GameObject otherPortal;
-    public GameObject OcculusionWorld;
-    public GameObject OcculusionPortalWorld;
+    public GameObject OtherWorldPortal;
+
     public bool playerOverlapping = false;
 
     void Start(){
-        OcculusionWorld.SetActive(true);
-        OcculusionPortalWorld.SetActive(false);
+        WorldAOcclusion.SetActive(true);
+        WorldBOcclusion.SetActive(false);
     }
     void Update()
     {
@@ -26,17 +27,17 @@ public class PortalTeleport : MonoBehaviour
 
             if(dotProduct < 0f)
             {
-                portalWorld.layer = 0;
-                ChangeLayers(portalWorld.transform, 0);
+                WorldB.layer = 0;
+                ChangeLayers(WorldB.transform, 0);
                 
                 portalSurface.enabled = false;
-                regularWorld.layer = 6;
-                ChangeLayers(regularWorld.transform, 6);
-                otherPortal.SetActive(true);
-                otherPortal.GetComponent<MeshRenderer>().enabled = true;
-                OcculusionWorld.SetActive(false);
-                OcculusionPortalWorld.SetActive(true);
-                ChangeLayers(OcculusionPortalWorld.transform, 6);
+                WorldA.layer = 6;
+                ChangeLayers(WorldA.transform, 6);
+                OtherWorldPortal.SetActive(true);
+                OtherWorldPortal.GetComponent<MeshRenderer>().enabled = true;
+                WorldAOcclusion.SetActive(false);
+                WorldBOcclusion.SetActive(true);
+                ChangeLayers(WorldBOcclusion.transform, 8);
                 playerOverlapping = false;
                 this.gameObject.SetActive(false);
             }

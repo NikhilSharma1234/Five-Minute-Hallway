@@ -1525,7 +1525,7 @@ GameObject:
   m_Component:
   - component: {fileID: 439141964}
   m_Layer: 8
-  m_Name: Occulde Normal Env
+  m_Name: Env A Occlusion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1995,12 +1995,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1744785813}
-  regularWorld: {fileID: 1824268404}
-  portalWorld: {fileID: 1882598525}
+  WorldA: {fileID: 1824268404}
+  WorldAOcclusion: {fileID: 1645894511}
+  WorldB: {fileID: 1882598525}
+  WorldBOcclusion: {fileID: 439141963}
   portalSurface: {fileID: 870275324}
-  otherPortal: {fileID: 1646415999}
-  OcculusionWorld: {fileID: 1645894511}
-  OcculusionPortalWorld: {fileID: 439141963}
+  OtherWorldPortal: {fileID: 1646415999}
   playerOverlapping: 0
 --- !u!65 &870275323
 BoxCollider:
@@ -3144,7 +3144,7 @@ Transform:
   m_GameObject: {fileID: 1365103225}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.70710576, z: -0, w: 0.70710784}
-  m_LocalPosition: {x: -5.537, y: 0, z: 0}
+  m_LocalPosition: {x: 0.04, y: 0, z: 8.99}
   m_LocalScale: {x: 1, y: 10, z: 28.924}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3478,7 +3478,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1645894512}
   m_Layer: 6
-  m_Name: Occlude Portal Env
+  m_Name: Env B Occlusion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3619,12 +3619,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1744785813}
-  regularWorld: {fileID: 1882598525}
-  portalWorld: {fileID: 1824268404}
+  WorldA: {fileID: 1882598525}
+  WorldAOcclusion: {fileID: 439141963}
+  WorldB: {fileID: 1824268404}
+  WorldBOcclusion: {fileID: 1645894511}
   portalSurface: {fileID: 1646416002}
-  otherPortal: {fileID: 870275320}
-  OcculusionWorld: {fileID: 439141963}
-  OcculusionPortalWorld: {fileID: 1645894511}
+  OtherWorldPortal: {fileID: 870275320}
   playerOverlapping: 0
 --- !u!1 &1720423816
 GameObject:
@@ -4108,7 +4108,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1824268405}
   m_Layer: 6
-  m_Name: Portal Enviornment
+  m_Name: Env B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4145,7 +4145,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1882598526}
   m_Layer: 0
-  m_Name: Normal Enviornment
+  m_Name: Env A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4604,5 +4604,5 @@ SceneRoots:
   - {fileID: 1882598526}
   - {fileID: 439141964}
   - {fileID: 834606591}
-  - {fileID: 1645894512}
   - {fileID: 1824268405}
+  - {fileID: 1645894512}
