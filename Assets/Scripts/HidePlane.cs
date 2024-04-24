@@ -18,7 +18,7 @@ public class HidePlane : MonoBehaviour
             }
         }
         else {
-            PortalPlaneB.SetActive(true);
+            //PortalPlaneB.SetActive(true);
         }
     }
 

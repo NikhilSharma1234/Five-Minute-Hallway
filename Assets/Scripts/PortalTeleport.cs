@@ -11,7 +11,6 @@ public class PortalTeleport : MonoBehaviour
     public GameObject WorldBOcclusion;
     public MeshRenderer portalSurface;
     public GameObject OtherWorldPortal;
-
     public bool playerOverlapping = false;
 
     void Start(){
