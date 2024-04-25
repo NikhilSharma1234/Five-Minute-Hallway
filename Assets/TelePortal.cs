@@ -1,57 +1,84 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
+using Vector3 = UnityEngine.Vector3;
 
 public class TelePortal : MonoBehaviour
 {
     public Transform player;
-    public Transform entrance;
     public Transform exit;
     private Vector3 positionOffset;
     private Vector3 rotationOffset;
     private Vector3 offsetFromEntrance;
-    private bool TeleportUsed = false;
-    private bool computeOffsets = true;
+    private bool playerIsOverlapping = false;
+    private bool playerTeleported = false;
+    private Vector3 previousPosition;
 
-    void Update()
+    void FixedUpdate()
     {
-        computeOffsetsOnce();
-        offsetFromEntrance = player.position - entrance.position;
-        offsetFromEntrance.Set(offsetFromEntrance.x, 0, offsetFromEntrance.z);
-        if (Vector3.Distance(player.position, entrance.position) < 10.0f && !TeleportUsed)
+        if(playerIsOverlapping)
         {
-            commenceTeleport();
-        }
+            Vector3 portalToPlayer = player.position - transform.position;
+            float dotProduct = Vector3.Dot(transform.up, portalToPlayer);
 
+            if(dotProduct < 0f)
+            {
+                Debug.Log("Position: " + player.position);
+                // Disable continuous move provider
+                //continuousMoveProvider.enabled = false;
+                playerTeleported = true;
+                Debug.Log("Teleporting player...");
+                float rotationDiff = -UnityEngine.Quaternion.Angle(transform.rotation, exit.rotation);
+                rotationDiff += 180;
+                player.Rotate(Vector3.up, rotationDiff);
+
+                Vector3 positionOffset = UnityEngine.Quaternion.Euler(0f, rotationDiff, 0f) * portalToPlayer;
+                player.position = exit.position + positionOffset;
+                Debug.Log("teleported player to " + player.position);
+                playerIsOverlapping = false;
+                //continuousMoveProvider.enabled = true;
+            }
+            
+
+
+        }
+        if(DistanceBetween(player.position, previousPosition) > 1.0f)
+        {
+            Debug.Log("Player moved."); 
+            Debug.Log("player position: " + player.position);
+        }
+        previousPosition = player.position;
     }
 
-    void computeOffsetsOnce()
+    // void OnDrawGizmos()
+    // {
+    //     Gizmos.color = Color.red;
+    //     Gizmos.DrawWireCube(entrance.position, new Vector3(10, 10, 10));
+    //     Gizmos.color = Color.green;
+    //     Gizmos.DrawWireCube(exit.position, new Vector3(10, 10, 10));
+    // }
+
+    float DistanceBetween(Vector3 a, Vector3 b)
     {
-        if (computeOffsets)
+        return Vector3.Distance(a, b);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("Player entered " + this.gameObject.name + ".");
+        if (other.tag == "Player")
         {
-            positionOffset = exit.position - entrance.position;
-            rotationOffset = exit.rotation.eulerAngles - entrance.rotation.eulerAngles;
-            //rotationOffset = rotationOffset;
-            computeOffsets = false;
+            playerIsOverlapping = true;
         }
     }
 
-    void commenceTeleport()
+    void OnTriggerExit(Collider other)
     {
-        Debug.Log("Portal offset: " + positionOffset);
-        Debug.Log("Portal rotation: " + rotationOffset);
-        //Debug.Log("Player offset: " + offsetFromEntrance);
-        TeleportUsed = true;
-        player.position += positionOffset;
-
-        //Quaternion rotationOffsetQuat = Quaternion.Euler(rotationOffset);
-        // Rotate offsetFromEntrance by rotationOffset
-        //Vector3 rotatedOffset = rotationOffsetQuat * offsetFromEntrance;
-        //player.position += rotatedOffset;
-        //player.rotation = Quaternion.Euler(player.rotation.eulerAngles + rotationOffset);
-
-        // Rotate the player by rotateOffset
-        player.rotation = Quaternion.Euler(player.rotation.eulerAngles + rotationOffset);
-        Debug.Log("Player rotated to: " + player.rotation.eulerAngles);
+        Debug.Log("Player exited the portal.");
+        if (other.tag == "Player")
+        {
+            playerIsOverlapping = false;
+        }
     }
 }
