@@ -23,7 +23,7 @@ public class TelePortal : MonoBehaviour
             Vector3 portalToPlayer = player.position - transform.position;
             float dotProduct = Vector3.Dot(transform.up, portalToPlayer);
 
-            if(dotProduct < 0f && portalUses > 0)
+            if(portalUses > 0)
             {
                 //Debug.Log("Position: " + player.position);
                 // Disable continuous move provider
