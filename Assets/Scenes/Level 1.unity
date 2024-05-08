@@ -2143,10 +2143,10 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 20
-  m_Range: 70
-  m_SpotAngle: 60
-  m_InnerSpotAngle: 30
+  m_Intensity: 1000
+  m_Range: 200
+  m_SpotAngle: 50
+  m_InnerSpotAngle: 35
   m_CookieSize: 2
   m_Shadows:
     m_Type: 1
@@ -4239,7 +4239,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1640006492
 MonoBehaviour:
   m_ObjectHideFlags: 0
