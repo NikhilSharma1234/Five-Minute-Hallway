@@ -14,6 +14,7 @@ public class TelePortal : MonoBehaviour
     private bool playerIsOverlapping = false;
     private bool playerTeleported = false;
     private Vector3 previousPosition;
+    public int portalUses = 100;
 
     void FixedUpdate()
     {
@@ -22,21 +23,22 @@ public class TelePortal : MonoBehaviour
             Vector3 portalToPlayer = player.position - transform.position;
             float dotProduct = Vector3.Dot(transform.up, portalToPlayer);
 
-            if(dotProduct < 0f)
+            if(dotProduct < 0f && portalUses > 0)
             {
-                Debug.Log("Position: " + player.position);
+                //Debug.Log("Position: " + player.position);
                 // Disable continuous move provider
                 //continuousMoveProvider.enabled = false;
                 playerTeleported = true;
-                Debug.Log("Teleporting player...");
+                //Debug.Log("Teleporting player...");
                 float rotationDiff = -UnityEngine.Quaternion.Angle(transform.rotation, exit.rotation);
                 rotationDiff += 180;
                 player.Rotate(Vector3.up, rotationDiff);
 
                 Vector3 positionOffset = UnityEngine.Quaternion.Euler(0f, rotationDiff, 0f) * portalToPlayer;
                 player.position = exit.position + positionOffset;
-                Debug.Log("teleported player to " + player.position);
+                //Debug.Log("teleported player to " + player.position);
                 playerIsOverlapping = false;
+                portalUses--;
                 //continuousMoveProvider.enabled = true;
             }
             
@@ -45,8 +47,8 @@ public class TelePortal : MonoBehaviour
         }
         if(DistanceBetween(player.position, previousPosition) > 1.0f)
         {
-            Debug.Log("Player moved."); 
-            Debug.Log("player position: " + player.position);
+            //Debug.Log("Player moved."); 
+            //Debug.Log("player position: " + player.position);
         }
         previousPosition = player.position;
     }
@@ -66,7 +68,7 @@ public class TelePortal : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Player entered " + this.gameObject.name + ".");
+        //Debug.Log("Player entered " + this.gameObject.name + ".");
         if (other.tag == "Player")
         {
             playerIsOverlapping = true;
@@ -75,7 +77,7 @@ public class TelePortal : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        Debug.Log("Player exited the portal.");
+        //Debug.Log("Player exited the portal.");
         if (other.tag == "Player")
         {
             playerIsOverlapping = false;
