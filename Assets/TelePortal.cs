@@ -12,7 +12,7 @@ public class TelePortal : MonoBehaviour
     private Vector3 rotationOffset;
     private Vector3 offsetFromEntrance;
     private bool playerIsOverlapping = false;
-    private bool playerTeleported = false;
+    //private bool playerTeleported = false;
     private Vector3 previousPosition;
     public int portalUses = 100;
 
@@ -28,7 +28,7 @@ public class TelePortal : MonoBehaviour
                 //Debug.Log("Position: " + player.position);
                 // Disable continuous move provider
                 //continuousMoveProvider.enabled = false;
-                playerTeleported = true;
+                //playerTeleported = true;
                 //Debug.Log("Teleporting player...");
                 float rotationDiff = -UnityEngine.Quaternion.Angle(transform.rotation, exit.rotation);
                 rotationDiff += 180;
