@@ -7,6 +7,7 @@ public class MainMenu : MonoBehaviour
 {
     public GameObject mainMenu;
     private bool gameStarted = false;
+    public GameObject MainMenuBoundary;
     
 
     public void Update(){
@@ -18,8 +19,7 @@ public class MainMenu : MonoBehaviour
                 mainMenu.SetActive(false);
             }
             mainMenu.transform.localScale = newScale;
-            // Start a courtuine that will disable the main menu after a few seconds
-            //StartCoroutine(DisableMainMenu());
+            if(MainMenuBoundary != null) Destroy(MainMenuBoundary);
         }
     }
 
